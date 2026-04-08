@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Verify Access - SecurePortal</title>
+    <meta name="description" content="Complete verification to access your premium content.">
+    <meta name="keywords" content="verify, password, access, secure, premium">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="🔐 Verify Access">
+    <meta property="og:description" content="Complete verification to access premium content.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 🔽 ADSTERRA POPUNDER (Page load pe trigger) 🔽 -->
+        <script src="https://pl29091632.profitablecpmratenetwork.com/e8/74/eb/e874eb182f0827a079dbd9a0ad05fdd8.js"></script>
+        <!-- 🔼 UPAR TAK 🔼 -->
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #60a5fa;
+            display: flex;            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #60a5fa;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        .card-text {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            background: rgba(148, 163, 184, 0.2);
+            border-radius: 10px;
+            height: 8px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            border-radius: 10px;
+            width: 33%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .badge-icon { color: #22c55e; font-weight: bold; }
+        
+        /* Continue Button */
+        .continue-btn {
+            background: linear-gradient(135deg, #22c55e, #16a34a);            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+            margin-top: 1rem;
+        }
+        .continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.5);
+            background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+        .continue-btn:active { transform: translateY(-1px); }
+        .continue-btn.processing {
+            background: #64748b;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-subtext {
+            display: block;
+            font-size: 0.8rem;
+            color: #bbf7d0;
+            margin-top: 0.5rem;
+        }
+        
+        /* Ad Slots Styling */
+        .ad-slot {
+            margin: 1.5rem auto;
+            text-align: center;
+            padding: 0.5rem;
+            min-height: 60px;
+        }
+        .ad-label {
+            display: block;
+            font-size: 10px;
+            color: #64748b;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Loading Overlay (Smart Ad Trigger) */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;            background: rgba(15, 23, 42, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+        .loading-overlay.active { display: flex; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(96, 165, 250, 0.3);
+            border-top-color: #60a5fa;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .loading-ad-note {
+            color: #64748b;
+            font-size: 0.85rem;
+            max-width: 300px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .card { padding: 1.5rem; }
+            .card-title { font-size: 1.2rem; }
+            .continue-btn { padding: 0.9rem 2rem; font-size: 1rem; }
+        }
+    </style>    
+    <!-- 🔽 ADSTERRA NATIVE BANNER 🔽 -->
+    <script async="async" data-cfasync="false" src="https://pl29091503.profitablecpmratenetwork.com/af6c1ca0d6e9af9b3aea84dd4e649747/invoke.js"></script>
+    <div id="container-af6c1ca0d6e9af9b3aea84dd4e649747"></div>
+    <!-- 🔼 UPAR TAK 🔼 -->
+    
+    <!-- Monetag Direct Link Script -->
+    <script async="async" data-cfasync="false" src="//omg10.com/1/10844539/direct.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">🔐 SecurePortal</div>
+    </header>
+
+    <!-- 🔽 ADSTERRA SOCIAL BAR 🔽 -->
+    <div class="ad-slot">
+        <span class="ad-label">ADVERTISEMENT</span>
+        <script src="https://pl29091630.profitablecpmratenetwork.com/35/11/26/351126e6cb6c10b95922e71afd5f531b.js"></script>
+    </div>
+    <!-- 🔼 UPAR TAK 🔼 -->
+
+    <!-- Main Content -->
+    <main>
+        <div class="step-indicator">
+            <span class="step-dot"></span>
+            <span>Step 2 of 3: Verify Access</span>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">🔒 Almost There!</h2>
+            <p class="card-text">Complete one quick verification to unlock your premium password. This helps us keep the service free and secure for everyone.</p>
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <span class="badge"><span class="badge-icon">✓</span> SSL Secure</span>
+                <span class="badge"><span class="badge-icon">✓</span> No Signup</span>
+                <span class="badge"><span class="badge-icon">✓</span> Instant Access</span>
+            </div>
+            
+            <!-- 🔽 ADSTERRA BANNER 160x300 🔽 -->
+            <div class="ad-slot">
+                <span class="ad-label">ADVERTISEMENT</span>
+                <script>
+                  atOptions = {                    'key' : 'e8a9d95791864667438cbae25a72b6f8',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://www.highperformanceformat.com/e8a9d95791864667438cbae25a72b6f8/invoke.js"></script>
+            </div>
+            <!-- 🔼 UPAR TAK 🔼 -->
+            
+            <!-- Continue Button -->
+            <button class="continue-btn" id="continueBtn">
+                ✅ Continue to Unlock
+            </button>
+            <span class="btn-subtext">🎁 100% Free • No Hidden Charges</span>
+        </div>
+    </main>
+
+    <!-- 🔽 Loading Overlay (Smart Ad Trigger) 🔽 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+        <p class="loading-text">Verifying access...</p>
+        <p class="loading-ad-note">✨ Supporting free service with partner offers</p>
+        <!-- 🔽 ADSTERRA SMARTLINK (Hidden but loads on overlay) 🔽 -->
+        <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%);">
+            <a href="https://www.profitablecpmratenetwork.com/n97g2zifdd?key=2e7fd662e3323164674ed6d0c02456b4" target="_blank" rel="noopener" style="display:block; padding:10px 20px; background:#60a5fa; color:white; border-radius:8px; text-decoration:none; font-size:0.9rem; font-weight:500;">🎁 Check Exclusive Offer</a>
+        </div>
+        <!-- 🔼 UPAR TAK 🔼 -->
+    </div>
+    <!-- 🔼 UPAR TAK 🔼 -->
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 SecurePortal • All rights reserved</p>
+        <p style="margin-top:5px; font-size:11px; color:#475569;">Ads by Monetag + Adsterra</p>
+    </footer>
+
+    <script>
+        // ================= CONFIG =================
+        const MONETAG_LINK = 'https://omg10.com/4/10844539'; // Direct Link
+        const SMARTLINK = 'https://www.profitablecpmratenetwork.com/n97g2zifdd?key=2e7fd662e3323164674ed6d0c02456b4';
+        const CONFIRM_PAGE = 'confirm.html';
+        const CLICKS_TO_UNLOCK = 3; // Continue button ke liye
+        // ===========================================
+
+        // DOM Elements
+        const continueBtn = document.getElementById('continueBtn');
+        const progressBar = document.getElementById('progressBar');
+        const loadingOverlay = document.getElementById('loadingOverlay');        
+        // Continue button counter (localStorage se persist)
+        let clickCount = parseInt(localStorage.getItem('afterClickCount') || '0');
+
+        // ✅ Smart Continue Button Logic
+        function handleContinueClick(e) {
+            e.preventDefault();
+            
+            // Agar already processing hai toh ignore
+            if (continueBtn.classList.contains('processing')) return;
+            
+            // Visual feedback
+            continueBtn.classList.add('processing');
+            continueBtn.innerHTML = '⏳ Processing...';
+            
+            // Click count badhao
+            clickCount++;
+            localStorage.setItem('afterClickCount', clickCount.toString());
+            const remaining = CLICKS_TO_UNLOCK - clickCount;
+            
+            // Progress bar update
+            const progress = Math.min((clickCount / CLICKS_TO_UNLOCK) * 100, 100);
+            progressBar.style.width = `${progress}%`;
+            
+            if (clickCount < CLICKS_TO_UNLOCK) {
+                // ✅ 1st or 2nd click = Open Monetag Direct Link (Ad)
+                setTimeout(() => {
+                    window.open(MONETAG_LINK, '_blank');
+                    
+                    // Show loading overlay with Smartlink
+                    loadingOverlay.classList.add('active');
+                    
+                    // After 3 sec, hide overlay and reset button
+                    setTimeout(() => {
+                        loadingOverlay.classList.remove('active');
+                        continueBtn.classList.remove('processing');
+                        continueBtn.innerHTML = `✅ Continue (${remaining} more)`;
+                        continueBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+                    }, 3000);
+                }, 500);
+            } else {
+                // ✅ 3rd click = Redirect to confirm.html
+                setTimeout(() => {
+                    loadingOverlay.classList.add('active');
+                    document.querySelector('.loading-text').textContent = '✅ Access Granted!';
+                    document.querySelector('.loading-ad-note').textContent = 'Redirecting to your password...';
+                    
+                    setTimeout(() => {
+                        window.location.href = CONFIRM_PAGE;
+                    }, 1500);                }, 500);
+            }
+        }
+
+        // Multiple event listeners for maximum sensitivity
+        continueBtn.addEventListener('click', handleContinueClick);
+        continueBtn.addEventListener('touchstart', handleContinueClick, { passive: true });
+        
+        // Optional: Track clicks for debugging
+        console.log(`🔢 After page clicks so far: ${clickCount}`);
+    </script>
+</body>
+</html>

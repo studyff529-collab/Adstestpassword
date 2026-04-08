@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Verify Access - MiniSurvey</title>
+    <meta name="description" content="Complete verification to access your content.">
+    <link rel="icon" href="image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+        /* 🔽 ADSTERRA POPUNDER 🔽 -->
+        <script src="https://pl29091632.profitablecpmratenetwork.com/e8/74/eb/e874eb182f0827a079dbd9a0ad05fdd8.js"></script>
+        <!-- 🔼 UPAR TAK 🔼 -->
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.5rem; background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .logo { font-size: 1.1rem; font-weight: bold; color: #60a5fa; display: flex; align-items: center; gap: 0.5rem; }
+        .menu-btn {
+            background: none; border: none; color: #f1f5f9; font-size: 1.8rem;
+            cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background 0.2s;
+        }
+        .menu-btn:hover { background: rgba(148, 163, 184, 0.2); }
+        .menu-dropdown {
+            position: absolute; top: 60px; right: 1rem;
+            background: #1e293b; border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 12px; padding: 0.5rem 0; min-width: 180px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4); display: none; z-index: 1001;
+            animation: slideDown 0.2s ease;
+        }
+        .menu-dropdown.active { display: block; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .menu-item {
+            display: block; padding: 0.8rem 1.2rem; color: #e2e8f0;
+            text-decoration: none; font-size: 0.95rem; transition: background 0.2s; cursor: pointer;
+        }
+        .menu-item:hover { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
+        .menu-item.danger { color: #f87171; }        .menu-item.danger:hover { background: rgba(248, 113, 113, 0.15); }
+        main { flex: 1; display: flex; flex-direction: column; padding: 2rem 1rem; gap: 1.5rem; align-items: center; }
+        
+        /* Floating CAPTCHA Box (30% screen, centered, fixed) */
+        .captcha-box {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; max-width: 320px;
+            background: rgba(30, 41, 59, 0.98);
+            border: 2px solid #60a5fa;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            z-index: 2000;
+            animation: floatIn 0.4s ease;
+        }
+        @keyframes floatIn { from { opacity: 0; transform: translate(-50%, -60%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+        
+        .captcha-title {
+            font-size: 1.1rem; font-weight: bold; margin-bottom: 1rem; color: #60a5fa;
+        }
+        .captcha-text {
+            background: rgba(255,255,255,0.1);
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            word-break: break-all;
+        }
+        .captcha-input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid rgba(148,163,184,0.3);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            color: #f1f5f9;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .captcha-input:focus { border-color: #60a5fa; }
+        .captcha-input.correct { border-color: #22c55e; background: rgba(34,197,94,0.1); }
+        .captcha-input.incorrect { border-color: #f87171; background: rgba(248,113,113,0.1); }
+        
+        .progress-bar {            height: 6px;
+            background: rgba(148,163,184,0.2);
+            border-radius: 3px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #60a5fa, #22c55e);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem;
+        }
+        
+        .status-text {
+            font-size: 0.9rem; color: #94a3b8; min-height: 20px;
+        }
+        .status-text.success { color: #22c55e; font-weight: 500; }
+        
+        /* Ad Slots */
+        .ad-slot { margin: 1.5rem auto; text-align: center; padding: 0.5rem; min-height: 50px; width: 100%; max-width: 320px; }
+        .ad-label { display: block; font-size: 10px; color: #64748b; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .banner-320x50 {
+            background: rgba(255,255,255,0.05); border-radius: 10px;
+            padding: 5px; margin: 1rem auto; min-height: 60px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        
+        /* Background Content (Scrollable behind floating box) */
+        .bg-content {
+            margin-top: 100px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+        
+        footer {
+            text-align: center; padding: 1.5rem 1rem; color: #64748b; font-size: 0.8rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        @media (max-width: 480px) {
+            .captcha-box { width: 92%; padding: 1.2rem; }
+            .captcha-text { font-size: 0.95rem; padding: 0.7rem; }
+        }
+    </style>    
+    <!-- 🔽 ADSTERRA NATIVE BANNER 🔽 -->
+    <script async="async" data-cfasync="false" src="https://pl29091503.profitablecpmratenetwork.com/af6c1ca0d6e9af9b3aea84dd4e649747/invoke.js"></script>
+    <div id="container-af6c1ca0d6e9af9b3aea84dd4e649747"></div>
+    <!-- 🔼 UPAR TAK 🔼 -->
+    
+    <!-- Monetag Direct Link -->
+    <script async="async" data-cfasync="false" src="//omg10.com/1/10844539/direct.js"></script>
+</head>
+<body>
+    <!-- 🔽 ADSTERRA POPUNDER 🔽 -->
+    <script src="https://pl29091632.profitablecpmratenetwork.com/e8/74/eb/e874eb182f0827a079dbd9a0ad05fdd8.js"></script>
+    <!-- 🔼 UPAR TAK 🔼 -->
+
+    <!-- Header + 3-Dot Menu -->
+    <header>
+        <div class="logo">🔐 SecureVerify</div>
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">⋮</button>
+        <nav class="menu-dropdown" id="menuDropdown">
+            <a href="#" class="menu-item" onclick="openMonetagLink(event)">📋 Terms</a>
+            <a href="#" class="menu-item" onclick="openMonetagLink(event)">🛡️ Privacy</a>
+            <a href="#" class="menu-item" onclick="openMonetagLink(event)">💬 Contact</a>
+            <a href="#" class="menu-item danger" onclick="openMonetagLink(event)">🚪 Exit</a>
+        </nav>
+    </header>
+
+    <!-- 🔽 ADSTERRA SOCIAL BAR 🔽 -->
+    <div class="ad-slot">
+        <span class="ad-label">SPONSORED</span>
+        <script src="https://pl29091630.profitablecpmratenetwork.com/35/11/26/351126e6cb6c10b95922e71afd5f531b.js"></script>
+    </div>
+    <!-- 🔼 UPAR TAK 🔼 -->
+
+    <!-- Floating CAPTCHA Box -->
+    <div class="captcha-box">
+        <div class="captcha-title">🔐 Human Verification</div>
+        <p style="font-size:0.9rem; color:#94a3b8; margin-bottom:0.8rem;">Type exactly as shown below:</p>
+        <div class="captcha-text" id="captchaText">mini militia mode apk unlimited everything</div>
+        
+        <div class="progress-text">Progress: <span id="progressPercent">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        
+        <input type="text" class="captcha-input" id="captchaInput" placeholder="Type here..." autocomplete="off">
+        <div class="status-text" id="statusText">Start typing to verify</div>
+    </div>
+
+    <!-- Background Content (Scrollable) -->
+    <main>
+        <div class="bg-content">
+            <p>📜 Loading secure content...</p>            <p style="margin-top:0.5rem; font-size:0.85rem;">Please complete verification above</p>
+        </div>
+
+        <!-- 🔽 BANNER 160x300 🔽 -->
+        <div class="ad-slot">
+            <span class="ad-label">ADVERTISEMENT</span>
+            <script>
+              atOptions = {
+                'key' : 'e8a9d95791864667438cbae25a72b6f8',
+                'format' : 'iframe',
+                'height' : 300,
+                'width' : 160,
+                'params' : {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/e8a9d95791864667438cbae25a72b6f8/invoke.js"></script>
+        </div>
+        <!-- 🔼 UPAR TAK 🔼 -->
+
+        <!-- 🔽 BANNER 320x50 🔽 -->
+        <div class="banner-320x50">
+            <script>
+              atOptions = {
+                'key' : 'b1a26135a093663b24e49233ed03b593',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+              };
+            </script>
+            <script src="https://www.highperformanceformat.com/b1a26135a093663b24e49233ed03b593/invoke.js"></script>
+        </div>
+        <!-- 🔼 UPAR TAK 🔼 -->
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 SecureVerify • All rights reserved</p>
+        <p style="margin-top:4px; font-size:11px; color:#475569;">Ads by Monetag + Adsterra</p>
+    </footer>
+
+    <script>
+        // ================= CONFIG =================
+        const TARGET_PHRASE = "mini militia mode apk unlimited everything";
+        const DONE_PAGE = 'done.html';
+        const MONETAG_LINK = 'https://omg10.com/4/10844539';
+        // ===========================================
+
+        // DOM Elements
+        const captchaInput = document.getElementById('captchaInput');        const captchaText = document.getElementById('captchaText');
+        const statusText = document.getElementById('statusText');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        
+        // 3-Dot Menu
+        const menuBtn = document.getElementById('menuBtn');
+        const menuDropdown = document.getElementById('menuDropdown');
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuDropdown.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+                menuDropdown.classList.remove('active');
+            }
+        });
+        function openMonetagLink(e) {
+            e.preventDefault();
+            menuDropdown.classList.remove('active');
+            window.open(MONETAG_LINK, '_blank');
+        }
+
+        // Real-time CAPTCHA Validation
+        captchaInput.addEventListener('input', () => {
+            const userInput = captchaInput.value.toLowerCase().trim();
+            const targetLower = TARGET_PHRASE.toLowerCase();
+            
+            // Calculate progress (word-by-word)
+            const userWords = userInput.split(' ').filter(w => w.length > 0);
+            const targetWords = targetLower.split(' ');
+            let matchedWords = 0;
+            
+            for (let i = 0; i < userWords.length && i < targetWords.length; i++) {
+                if (userWords[i] === targetWords[i]) {
+                    matchedWords++;
+                } else {
+                    break; // Stop at first mismatch
+                }
+            }
+            
+            const progress = Math.min((matchedWords / targetWords.length) * 100, 100);
+            progressFill.style.width = `${progress}%`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+            
+            // Visual feedback
+            if (userInput === targetLower) {
+                captchaInput.classList.add('correct');
+                captchaInput.classList.remove('incorrect');
+                statusText.textContent = '✅ Verified! Redirecting...';                statusText.classList.add('success');
+                
+                // Auto-redirect after short delay
+                setTimeout(() => {
+                    window.location.href = DONE_PAGE;
+                }, 800);
+            } else if (matchedWords > 0 && userInput.length < targetLower.length) {
+                captchaInput.classList.remove('correct', 'incorrect');
+                statusText.textContent = `✓ ${matchedWords}/${targetWords.length} words correct. Keep typing...`;
+                statusText.classList.remove('success');
+            } else if (userInput.length > 0) {
+                captchaInput.classList.add('incorrect');
+                captchaInput.classList.remove('correct');
+                statusText.textContent = '✗ Mismatch. Check spelling & spaces.';
+                statusText.classList.remove('success');
+            } else {
+                captchaInput.classList.remove('correct', 'incorrect');
+                statusText.textContent = 'Start typing to verify';
+                statusText.classList.remove('success');
+            }
+        });
+        
+        // Auto-focus input on load
+        window.addEventListener('load', () => {
+            captchaInput.focus();
+        });
+        
+        console.log('✅ info5.html loaded. CAPTCHA active. Ads integrated.');
+    </script>
+</body>
+</html>
